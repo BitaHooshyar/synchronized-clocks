@@ -1,3 +1,35 @@
-<div>
-  <span>{{ title }} app is running!</span>
+<div class="content--center">
+  <div class="padding--top">
+    <h1 class="margin--no-margin">{{ title }}</h1>
+  </div>
+  <div class="padding--top">
+    <div class="digit-clock">
+      <span class="digit-clock__box">{{ currentClock.hour | twoDigit }}</span>
+      <span class="digit-clock__divider">:</span>
+      <span class="digit-clock__box">{{ currentClock.minute | twoDigit }}</span>
+      <span class="digit-clock__divider">:</span>
+      <span class="digit-clock__box">{{ currentClock.second | twoDigit }}</span>
+      <span class="digit-clock__space"></span>
+      <span class="digit-clock__box">{{ currentClock.period }}</span>
+    </div>
+  </div>
+  <div class="padding--top">
+    <div class="clock">
+      <div class="clock__wrapper">
+        <div class="clock__mark-wrapper">
+          <div class="clock__number-mark mark--one"></div>
+          <div class="clock__number-mark mark--two"></div>
+          <div class="clock__number-mark mark--three"></div>
+          <div class="clock__number-mark mark--four"></div>
+          <div class="clock__number-mark mark--five"></div>
+          <div class="clock__number-mark mark--six"></div>
+          <div class="clock__inner-wrapper">
+            <div class="clock__hand hand--hour" [ngStyle]="currentClock.hourHandStyle"></div>
+            <div class="clock__hand hand--minute" [ngStyle]="currentClock.minuteHandStyle"></div>
+            <div class="clock__hand hand--second" [ngStyle]="currentClock.secondHandStyle"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

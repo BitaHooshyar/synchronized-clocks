@@ -1,1 +1,18 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap');
+
+body {
+  font-family: sans-serif;
+}
+
+.content {
+  &--center { text-align: center; }
+}
+
+.margin {
+  &--no-margin { margin: 0; }
+}
+
+.padding {
+  &--top { padding-top: 30px; }
+  &--no-padding { padding: 0; }
+}
