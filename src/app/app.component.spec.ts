@@ -16,16 +16,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'synchronized-clocks'`, () => {
+  it(`should have as title 'Synchronized Clocks'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('synchronized-clocks');
+    expect(app.title).toEqual('Synchronized Clocks');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('synchronized-clocks app is running!');
+    expect(compiled.querySelector('.content span')?.textContent).toContain('Synchronized Clocks app is running!');
   });
 });
