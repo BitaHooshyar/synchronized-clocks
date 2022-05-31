@@ -18,33 +18,29 @@ interface ClockInfo {
 })
 export class AppComponent implements OnInit, OnDestroy {
   public title: string = 'Synchronized Clocks';
-
-  public currentDate: Date = new Date();
-
   public clockIsAuto: boolean = true;
-
   public currentClock: ClockInfo = {
     hour: 0,
     minute: 0,
     second: 0,
     period: 'AM',
-    hourHandStyle: { transform: `none` },
-    minuteHandStyle: { transform: `none` },
-    secondHandStyle: { transform: `none` }
+    hourHandStyle: { transform: `rotate(90deg)` },
+    minuteHandStyle: { transform: `rotate(90deg)` },
+    secondHandStyle: { transform: `rotate(90deg)` }
   };
   public customClock: ClockInfo = {
     hour: 0,
     minute: 0,
     second: 0,
     period: 'AM',
-    hourHandStyle: { transform: `none` },
-    minuteHandStyle: { transform: `none` },
-    secondHandStyle: { transform: `none` },
+    hourHandStyle: { transform: `rotate(90deg)` },
+    minuteHandStyle: { transform: `rotate(90deg)` },
+    secondHandStyle: { transform: `rotate(90deg)` },
   };
 
   private clockInterval: any;
 
-  constructor() {}
+  constructor() { }
 
   ngOnInit() {
     if (this.clockIsAuto) {
@@ -54,20 +50,30 @@ export class AppComponent implements OnInit, OnDestroy {
     }
   }
 
+  changeClockState() {
+    this.clockIsAuto = !this.clockIsAuto;
+    if (this.clockIsAuto) {
+      this.intervalClock();
+    } else {
+      this.customClock = this.currentClock;
+      this.clockInterval && clearInterval(this.clockInterval);
+    }
+  }
+
   intervalClock() {
     let date = new Date();
     this.clockInterval = setInterval(() => {
       date = new Date();
-      this.currentClock = this.initialClock(date);
+      this.currentClock = this.setClock(date.getHours(), date.getMinutes(), date.getSeconds());
     }, 1000);
   }
 
-  initialClock(date: Date): ClockInfo {
-    const hour = date.getHours();
-    const minute = date.getMinutes();
-    const second = date.getSeconds();
+  setClock(hour: number, minute: number, second: number): ClockInfo {
+    hour = !hour || hour == null ? 0 : hour;
+    minute = !minute || minute == null ? 0 : minute;
+    second = !second || second == null ? 0 : second;
     return {
-      hour: hour,
+      hour: hour < 12 ? hour : hour - 12,
       minute: minute,
       second: second,
       period: hour < 12 ? 'AM' : 'PM',
@@ -81,6 +87,21 @@ export class AppComponent implements OnInit, OnDestroy {
         transform: `rotate(${(second / 60) * 360 + 90}deg)`
       },
     };
+  }
+
+  updateClock(inputName: 'hour' | 'minute' | 'second', event: any) {
+    const value = event.target.value;
+    if (inputName == 'hour' && value > 11) {
+      this.customClock.hour = this.currentClock.hour;
+    }
+    if (inputName == 'minute' && value > 59) {
+      this.customClock.minute = this.currentClock.minute;
+    }
+    if (inputName == 'second' && value > 59) {
+      this.customClock.second = this.currentClock.second;
+    }
+    this.currentClock = this.setClock(this.customClock.hour, this.customClock.minute, this.customClock.second);
+    console.log(this.currentClock);
   }
 
   ngOnDestroy() {

@@ -34,4 +34,20 @@
       </div>
     </div>
   </div>
+  <!-- Clock controller -->
+  <div class="padding--top">
+    <div class="padding--top">
+      <button (click)="changeClockState()" class="primary-button">
+        {{ clockIsAuto ? 'Change to custom clock' : 'Change to auto clock' }}
+      </button>
+      <div class="padding--top">
+        <div *ngIf="!clockIsAuto">
+          <span>Enter new time : </span>
+          <input [(ngModel)]="customClock.hour" (keyup)="updateClock('hour', $event)" type="number" [placeholder]="customClock.hour | twoDigit" class="primary-input clock-input">
+          <input [(ngModel)]="customClock.minute" (keyup)="updateClock('minute', $event)" clockMinute type="number" [placeholder]="customClock.minute | twoDigit" class="primary-input clock-input">
+          <input [(ngModel)]="customClock.second" (keyup)="updateClock('second', $event)" clockSecond type="number" [placeholder]="customClock.second | twoDigit" class="primary-input clock-input">
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
