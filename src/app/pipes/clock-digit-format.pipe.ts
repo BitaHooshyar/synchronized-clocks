@@ -1,12 +1,11 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'twoDigit'
+  name: 'clockDigitFormat'
 })
-export class TwoDigitPipe implements PipeTransform {
+export class ClockDigitFormat implements PipeTransform {
 
-  transform(value: number | string): string {
+  transform(value: number): string {
     return (value + '').length === 1 ? '0' + value : value + '';
   }
-
 }

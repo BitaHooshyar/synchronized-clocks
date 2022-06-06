@@ -1,5 +1,4 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { TwoDigitPipe } from './pipes/two-digit.pipe';
 
 interface ClockInfo {
   hour: number;
@@ -17,7 +16,7 @@ interface ClockInfo {
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit, OnDestroy {
-  public title: string = 'Synchronized Clocks';
+  public title: string = 'Synchronized clocks';
   public clockIsAuto: boolean = true;
   public currentClock: ClockInfo = {
     hour: 0,
@@ -38,7 +37,7 @@ export class AppComponent implements OnInit, OnDestroy {
     secondHandStyle: { transform: `rotate(90deg)` },
   };
 
-  private clockInterval: any;
+  public clockInterval: any;
 
   constructor() { }
 
@@ -68,15 +67,18 @@ export class AppComponent implements OnInit, OnDestroy {
     }, 1000);
   }
 
-  setClock(hour: number, minute: number, second: number): ClockInfo {
+  setClock(hour: number | null, minute: number | null, second: number | null): ClockInfo {
     hour = !hour || hour == null ? 0 : hour;
     minute = !minute || minute == null ? 0 : minute;
     second = !second || second == null ? 0 : second;
+    let period : 'AM' | 'PM' = hour < 12 ? 'AM' : 'PM';
+    period = (hour === 24 || hour === 0) ? 'AM' : period;
+    hour = hour < 13 ? hour : hour - 12;
     return {
-      hour: hour < 12 ? hour : hour - 12,
+      hour: hour === 0 ? 12 : hour,
       minute: minute,
       second: second,
-      period: hour < 12 ? 'AM' : 'PM',
+      period: period,
       hourHandStyle: {
         transform: `rotate(${(hour / 12) * 360 + (minute / 60) * 30 + 90}deg)`
       },
@@ -91,7 +93,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   updateClock(inputName: 'hour' | 'minute' | 'second', event: any) {
     const value = event.target.value;
-    if (inputName == 'hour' && value > 11) {
+    if (inputName == 'hour' && value > 24) {
       this.customClock.hour = this.currentClock.hour;
     }
     if (inputName == 'minute' && value > 59) {
@@ -101,7 +103,7 @@ export class AppComponent implements OnInit, OnDestroy {
       this.customClock.second = this.currentClock.second;
     }
     this.currentClock = this.setClock(this.customClock.hour, this.customClock.minute, this.customClock.second);
-    console.log(this.currentClock);
+
   }
 
   ngOnDestroy() {

@@ -5,11 +5,11 @@
   <!-- Digital clock -->
   <div class="padding--top">
     <div class="digit-clock">
-      <span class="digit-clock__box">{{ currentClock.hour | twoDigit }}</span>
+      <span class="digit-clock__box">{{ currentClock.hour | clockDigitFormat }}</span>
       <span class="digit-clock__divider">:</span>
-      <span class="digit-clock__box">{{ currentClock.minute | twoDigit }}</span>
+      <span class="digit-clock__box">{{ currentClock.minute | clockDigitFormat }}</span>
       <span class="digit-clock__divider">:</span>
-      <span class="digit-clock__box">{{ currentClock.second | twoDigit }}</span>
+      <span class="digit-clock__box">{{ currentClock.second | clockDigitFormat }}</span>
       <span class="digit-clock__space"></span>
       <span class="digit-clock__box">{{ currentClock.period }}</span>
     </div>
@@ -43,9 +43,9 @@
       <div class="padding--top">
         <div *ngIf="!clockIsAuto">
           <span>Enter new time : </span>
-          <input [(ngModel)]="customClock.hour" (keyup)="updateClock('hour', $event)" type="number" [placeholder]="customClock.hour | twoDigit" class="primary-input clock-input">
-          <input [(ngModel)]="customClock.minute" (keyup)="updateClock('minute', $event)" clockMinute type="number" [placeholder]="customClock.minute | twoDigit" class="primary-input clock-input">
-          <input [(ngModel)]="customClock.second" (keyup)="updateClock('second', $event)" clockSecond type="number" [placeholder]="customClock.second | twoDigit" class="primary-input clock-input">
+          <input [(ngModel)]="customClock.hour" (keyup)="updateClock('hour', $event)" type="number" [placeholder]="customClock.hour | clockDigitFormat" class="primary-input clock-input">
+          <input [(ngModel)]="customClock.minute" (keyup)="updateClock('minute', $event)" clockMinute type="number" [placeholder]="customClock.minute | clockDigitFormat" class="primary-input clock-input">
+          <input [(ngModel)]="customClock.second" (keyup)="updateClock('second', $event)" clockSecond type="number" [placeholder]="customClock.second | clockDigitFormat" class="primary-input clock-input">
         </div>
       </div>
     </div>
